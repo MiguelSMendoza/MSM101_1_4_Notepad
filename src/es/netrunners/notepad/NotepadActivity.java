@@ -28,16 +28,14 @@ public class NotepadActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		FILENAME = (EditText) findViewById(R.id.key);
-		BODY = (EditText) findViewById(R.id.value);
-		
-		
-		
+		BODY = (EditText) findViewById(R.id.value);	
 	}
 
 	public void retrieveData(View v) {
 		String filename = FILENAME.getText().toString();
 		if (!(filename.length() > 0))
 			filename = "filename.txt";
+		filename = filename.trim();
 		String bodytext = new String();
 		BufferedReader br = null;
 		try {
@@ -45,7 +43,7 @@ public class NotepadActivity extends Activity {
 			br = new BufferedReader(fr);
 
 			while (br.ready()) {
-				bodytext += "\n" + br.readLine();
+				bodytext += br.readLine() + "\n";
 			}
 			br.close();
 		} catch (IOException e) {
@@ -64,6 +62,7 @@ public class NotepadActivity extends Activity {
 		String filename = FILENAME.getText().toString();
 		if (!(filename.length() > 0))
 			filename = "filename.txt";
+		filename = filename.trim();
 		try {
 			fw = new FileWriter(PATH + filename);
 			BufferedWriter bw = new BufferedWriter(fw);
